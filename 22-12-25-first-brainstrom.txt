@@ -1,0 +1,16 @@
+my first intuitions on this problem:
+
+part 1:
+input--- 2d matrix; output---integer;
+u are given a 2d matrix
+then u wanna go to each roll of paper and find its 8 neighbours
+if there are <4 rolls of paper in those 8 neighbours then add it to the target variable
+for corner cases, u must take care, they hv only 3 or 5
+like at corners only 3
+at edges not corner its 5
+
+flattening was my first thought
+but its a bad idea cuz corners and edges
+
+ok ill implement a search algorithm to each roll of paper first
+

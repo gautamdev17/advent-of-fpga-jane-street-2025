@@ -1,0 +1,34 @@
+yeahh .. so this is the first investigation of the problem lol
+
+problem advent of code 2025 day 4 printing department
+
+given a 2d grid
+@ means roll of paper
+. means empty
+
+each cell has 8 neighbors including diagonals
+
+a roll of paper is accessible if less than 4 of its neighboring cells are @
+
+part 1
+from the original grid count how many paper rolls are accessible
+
+part 2
+start again from the original grid and repeat
+find all accessible paper rolls
+remove all of them together by turning @ into .
+recalculate accessibility on the new grid
+
+stop when no paper roll is accessible
+
+output
+part 1 number of accessible rolls in the initial grid
+part 2 total number of rolls removed across all iterations
+
+input
+text grid one row per line
+all rows same length
+only @ and . characters
+
+output
+two numbers part 1 result and part 2 result
