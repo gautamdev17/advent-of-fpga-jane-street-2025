@@ -43,3 +43,22 @@ i should ask for each neighbor
 
 do u exist? if yea then are u a @?
 
+started with design 2
+
+i think its a really easy problem
+
+im thinking of convolutional neural networks, i find the similar to that
+maybe a filtering layer is what i need
+
+what do i need to filter?
+everytime i hit a '@'
+check-->valid neighbours-->'@'
+
+thats all
+
+bro all i need is an offset algorithm and check each neighbour
+
+if the offset + the index === valdi?
+    then go for it and check if @
+
+
