@@ -1,6 +1,6 @@
 //PART 1
 
-module access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0],  // 1 = paper, 0 = empty
+module access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0],//1=paper,0=nothin
 output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
 
     integer i,j;

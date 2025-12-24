@@ -1,6 +1,21 @@
 //PART 2
 
 // we can invoke hardware unit in previous part,basically we can first create instance of part 1 module and reuse it
+module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0],//1=paper,0=nothin
+output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
+    access inst1 #(WIDTH,DEPTH)(mat,count);//instantiation this will do the math for uss
+
+    // now i haveto build a top level software approach then go into the hardware low level design
+    //software approach
+    count=0;
+    final=1;//check variable, jus a flag
+    while (final) begin
+        for (i=0;i<DEPTH;i=i+1) begin
+            for(j=0;j<WIDTH;j=j+1) begin
+                
+            end
+        end
+    end
 
 
 
@@ -20,7 +35,7 @@
 
 
 
-
+endmodule
 
 //PART 1
 

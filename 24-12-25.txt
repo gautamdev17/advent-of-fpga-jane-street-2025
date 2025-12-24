@@ -60,5 +60,3 @@ bro all i need is an offset algorithm and check each neighbour
 
 if the offset + the index === valdi?
     then go for it and check if @
-
-
