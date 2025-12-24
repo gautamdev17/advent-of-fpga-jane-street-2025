@@ -1,3 +1,5 @@
+//PART 1
+
 module access #(parameter width,parameter depth)(input [width-1:0][depth-1:0]mat,output reg [$clog2(width*depth):0]count); 
 // width is size of each row, depth is no. of rows
 // i hv synthesized fifo's, b4 so naming is similar to them

@@ -1,4 +1,4 @@
-yeahh .. so this is the first investigation of the problem lol
+yeahh .. so this is the first investigation of the problem
 
 problem advent of code 2025 day 4 printing department
 
@@ -6,7 +6,7 @@ given a 2d grid
 @ means roll of paper
 . means empty
 
-each cell has 8 neighbors including diagonals
+each cell has 8 neighobours including diagonals
 
 a roll of paper is accessible if less than 4 of its neighboring cells are @
 
