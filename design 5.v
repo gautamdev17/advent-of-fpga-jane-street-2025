@@ -1,3 +1,27 @@
+//PART 2
+
+// we can invoke hardware unit in previous part,basically we can first create instance of part 1 module and reuse it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //PART 1
 
 module access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0],  // 1 = paper, 0 = empty

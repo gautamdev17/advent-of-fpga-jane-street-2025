@@ -1,4 +1,5 @@
 //PART 1
+// i still dont think part 1 is fpga freindly
 
 module access #(parameter width,parameter depth)(input [depth-1:0][width-1:0]mat,output reg [$clog2(width*depth):0]count);
 // width is size of each row, depth is no. of rows

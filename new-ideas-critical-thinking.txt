@@ -1,0 +1,36 @@
+24-12-25
+
+2:22pm
+    i still dont think my solution to part 1 is fpga friendly
+    yes it is to an extent, i hv removed software oriented if-else nested loops and brought
+    convolution style solution
+    but those negative indices and replacing the character comparisons to binary can bring better
+    fpga synthesis
+    dynamic checking feels bad
+2:45 pm
+    did some research and found this, i have also attached ss for future reference
+
+    // RESEARCH, GOOGLE
+    Dynamic checking is generally considered "bad" for FPGAs primarily because it
+    introduces significant performance overhead, increases power consumption,
+    and consumes valuable logic resources that are better utilized for the core application.
+    The fundamental nature of FPGAs is optimized for static, parallel hardware execution,
+    not the sequential, conditional operations typical of dynamic software checking. 
+    // CHECK THIS //
+
+    if ((i+oi)>=0&&(i+oi)<depth && (j+oj)>=0&&(j+oj)<width) begin 
+    
+    i hate this above line
+    maybe i can choose a wire type to keep it static
+
+    to sum up
+    1. i dont want negative indices --- > for (oi=-1;oi <= 1;oi =oi+1) be
+    2. change all those dynamic checks to static wires
+    4. @ to 1 and . to 0
+    5. check once again for latches inferred
+
+    so my idea is to make some net elements for each neighbour
+    if the neighbour is @ it will be set to 
+
+3:45pm: 
+    edits were made in the design 4 file and made the design more hardware friendly
