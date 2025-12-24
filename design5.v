@@ -1,6 +1,7 @@
 //PART 2
 
 // we can invoke hardware unit in previous part,basically we can first create instance of part 1 module and reuse it
+// maybe with a bit of modification
 module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0],//1=paper,0=nothin
 output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
     access inst1 #(WIDTH,DEPTH)(mat,count);//instantiation this will do the math for uss
@@ -77,8 +78,10 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
                     // no latches inferrred. everu reg is given a defined path in all cases.
                     n_count=n00+n01+n02+n10+n12+n20+n21+n22;
 
-                    if (n_count<4)//check for accessibility
+                    if (n_count<4) begin//check for accessibility
                         count=count+1'b1;
+                        mat[i][j]=0;
+                    end
                 end
             end
         end

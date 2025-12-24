@@ -34,3 +34,6 @@
 
 3:45pm: 
     edits were made in the design 4 file and made the design more hardware friendly
+
+12:05 AM:
+    so software approach to part 2 seems dumb
