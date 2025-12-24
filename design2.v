@@ -48,3 +48,5 @@ if the offset + the index === valdi?
 endmodule
 
 // i also think this is a good combinational logic, no latches have been inferred. we dont wanna end up doing timing analysis for latches.
+
+//testbench coming soon
