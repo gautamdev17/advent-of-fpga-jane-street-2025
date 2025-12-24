@@ -1,0 +1,45 @@
+my approach is very software oriented
+if(mat[i][j] == '@') begin
+    if(j==0) begin
+        if(i==0) begin // corner case
+
+        end
+        else if(i==depth-1) begin // corner case
+
+        end
+        else begin // edge case
+
+        end
+    end
+    else if(i==0) begin
+        if(j==0) begin // corner case
+
+        end
+        else if(j==depth-1) begin // corner case
+
+        end
+        else begin // edge cases
+
+        end
+    end
+    else begin //normal case
+
+    end
+end
+
+    so ill restrart
+    do i really care whether it is a corner or edge or do i only care whether a neighbor exists or not
+    i only care whether a neighbor index is valid
+
+a roll is accessible if
+among its 8 surrounding positions
+fewer than 4 contain @
+
+so instead of asking
+	am i a corner?
+    am i an edge?
+
+i should ask for each neighbor
+
+do u exist? if yea then are u a @?
+

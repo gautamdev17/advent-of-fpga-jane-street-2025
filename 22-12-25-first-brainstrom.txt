@@ -13,4 +13,3 @@ flattening was my first thought
 but its a bad idea cuz corners and edges
 
 ok ill implement a search algorithm to each roll of paper first
-
