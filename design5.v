@@ -7,14 +7,15 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0]count,output reg done);//added flag regs
     reg [WIDTH-1:0]mat_out[DEPTH-1:0];
     reg [WIDTH-1:0]mat_in[DEPTH-1:0]=mat;
 
-    wire [$clog2(WIDTH*DEPTH+1)-1:0] removed;
+    wire [$clog2(WIDTH*DEPTH+1)-1:0]removed;
     wire any_removed;
-    
+
     remove_accessible inst1 #(WIDTH,DEPTH)(mat_in,mat_out,removed,any_removed);//instantiation this will do the math for uss
     // now i haveto build a top level software approach then
      //go into the hardware low level design
     count=0;
     always @(posedge clk) begin
+        // i want to add some inital reset conditions
         if(any_removed) begin
             count<=count+removed;
             mat_in<=mat_out;
