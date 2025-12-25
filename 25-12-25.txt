@@ -22,3 +22,5 @@ u should stop
 but how
 we cant have breaks in hardware synthesis
 
+
+one clock is like on full sweep
