@@ -2,23 +2,27 @@
 
 // we can invoke hardware unit in previous part,basically we can first create instance of part 1 module and reuse it
 // maybe with a bit of modification
-module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0],//1=paper,0=nothin
+// since this is part has a sequence, i think modelling this into a sequential circuit is the best way
+module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0], input clk//1=paper,0=nothin
 output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
-    access inst1 #(WIDTH,DEPTH)(mat,count);//instantiation this will do the math for uss
-
-    // now i haveto build a top level software approach then go into the hardware low level design
+    reg mat_out = mat;
+    remove_accessible access inst1 #(WIDTH,DEPTH)(mat_out,count);//instantiation this will do the math for uss
+    // now i haveto build a top level software approach then
+     //go into the hardware low level design
     //software approach
     count=0;
     final=1;//check variable, jus a flag
-    while (final) begin
-        for (i=0;i<DEPTH;i=i+1) begin
-            for(j=0;j<WIDTH;j=j+1) begin
-                
+    always @(posedge clk) begin
+        if(final) begin
+            for (i=0;i<DEPTH;i=i+1) begin
+                for(j=0;j<WIDTH;j=j+1) begin
+                    
+                end
             end
         end
+        else
     end
-
-
+    
 
 
 
@@ -40,18 +44,16 @@ endmodule
 
 //PART 1
 
-module access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0],  // 1 = paper, 0 = empty
-output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
-
+module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_in[DEPTH-1:0],//1=paper,0=empty
+output reg [WIDTH-1:0]mat_out[DEPTH-1:0],output logic [$clog2(WIDTH*DEPTH+1)-1:0] removed,output logic any_removed);
     integer i,j;
     //neighbourr wires, if they exist, then they will be assigned high
     reg n00,n01,n02;
     reg n10,n12; //n11 is not there, its the elemnet itself
     reg n20,n21,n22;
     reg [3:0] n_count; //this is the final neighbuor count, use 3:0 cuz count can go upto 8(1000in bin)
-    reg has_up, has_down, has_left, has_right; //based on these condictions we will decide if the neighbours exits or not
+    reg has_up, has_down, has_left, has_right;//based on these condictions we will decide if the neighbours exits or not
     always @(*) begin
-        count=0;
         for (i=0;i<DEPTH;i=i+1) begin
             for(j=0;j<WIDTH;j=j+1) begin
                 if (mat[i][j]) begin// i have converted @ and . to 1 and 0. we will need the input matrix to undergo this conversion
@@ -77,11 +79,11 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
                     n22=(has_down&&has_right)?mat[i+1][j+1]:1'b0;
                     // no latches inferrred. everu reg is given a defined path in all cases.
                     n_count=n00+n01+n02+n10+n12+n20+n21+n22;
-
                     if (n_count<4) begin//check for accessibility
-                        count=count+1'b1;
-                        mat[i][j]=0;
+                        mat_out[i][j]=1'b1;
                     end
+                    else
+                        mat_out[i][j]=1'b0;
                 end
             end
         end
