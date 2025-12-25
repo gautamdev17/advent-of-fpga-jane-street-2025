@@ -14,11 +14,7 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
     final=1;//check variable, jus a flag
     always @(posedge clk) begin
         if(final) begin
-            for (i=0;i<DEPTH;i=i+1) begin
-                for(j=0;j<WIDTH;j=j+1) begin
-                    
-                end
-            end
+            
         end
         else
     end
@@ -45,7 +41,7 @@ endmodule
 //PART 1
 
 module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_in[DEPTH-1:0],//1=paper,0=empty
-output reg [WIDTH-1:0]mat_out[DEPTH-1:0],output logic [$clog2(WIDTH*DEPTH+1)-1:0] removed,output logic any_removed);
+output reg [WIDTH-1:0]mat_out[DEPTH-1:0],output reg [$clog2(WIDTH*DEPTH+1)-1:0] removed,output reg any_removed);
     integer i,j;
     //neighbourr wires, if they exist, then they will be assigned high
     reg n00,n01,n02;

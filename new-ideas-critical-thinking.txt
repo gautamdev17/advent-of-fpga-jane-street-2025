@@ -42,4 +42,4 @@
 10:29AM:
     (grid_in) --> remove_accessible --> (grid_out, removed_count, any_removed)
     this is going to be my formula
-    a fsm
+    
