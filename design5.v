@@ -70,10 +70,10 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
                         any_removed=1'b1;
                     end
                     else
-                        mat_out=1'b1;
+                        mat_out[i][j]=1'b1;
                 end
                 else
-                    mat_out=1'b0;
+                    mat_out[i][j]=1'b0;
             end
         end
     end
