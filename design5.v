@@ -3,14 +3,13 @@
 // we can invoke hardware unit in previous part,basically we can first create instance of part 1 module and reuse it
 // maybe with a bit of modification
 // since this is part has a sequence, i think modelling this into a sequential circuit is the best way
-module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0], input clk//1=paper,0=nothin
+module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_init[DEPTH-1:0], input clk//1=paper,0=nothin
 output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
     reg [WIDTH-1:0]mat_out[DEPTH-1:0]
     reg [WIDTH-1:0]mat_in[DEPTH-1:0]=mat;
     remove_accessible inst1 #(WIDTH,DEPTH)(mat_in,mat_out,removed,any_removed);//instantiation this will do the math for uss
     // now i haveto build a top level software approach then
      //go into the hardware low level design
-    //software approach
     count=0;
     always @(posedge clk) begin
         if(any_removed) begin
