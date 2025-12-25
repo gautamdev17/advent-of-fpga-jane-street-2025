@@ -45,4 +45,4 @@
     
 4:10 pm:
     try pipelining
-    for part 1 now its fully combinational and deterministic
+    for part 1 now its fully combinational and deterministic, but it might take a large area

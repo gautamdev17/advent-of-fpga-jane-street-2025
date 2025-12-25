@@ -13,10 +13,7 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
     count=0;
     final=1;//check variable, jus a flag
     always @(posedge clk) begin
-        if(final) begin
-            
-        end
-        else
+        
     end
     
 
