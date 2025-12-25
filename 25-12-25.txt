@@ -1,1 +1,24 @@
-i was thinking of a new model to part 2
+i was thinking of a new model to part 2 when sleeping
+
+lets make it sequential
+each step is controlled by a clock
+
+we cant use part 1 directly
+modify it
+and use it
+
+so part 1 should be like a function
+input matrix--->output matrix, total removal of @
+
+top module should control the flow
+take in the 1st given input matrix
+feed it to part 1 hardware, send that as stimulus
+then get outputs,increment total removal
+
+then push back the output matrix as input
+if removal≠0
+or else removal=0
+u should stop
+but how
+we cant have breaks in hardware synthesis
+
