@@ -37,3 +37,9 @@
 
 12:05 AM:
     so software approach to part 2 seems dumb
+
+25-12-25
+10:29AM:
+    (grid_in) --> remove_accessible --> (grid_out, removed_count, any_removed)
+    this is going to be my formula
+    a fsm
