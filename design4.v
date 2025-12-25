@@ -5,9 +5,7 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
 
     integer i,j;
     //neighbourr wires, if they exist, then they will be assigned high
-    reg n00,n01,n02;
-    reg n10,n12; //n11 is not there, its the elemnet itself
-    reg n20,n21,n22;
+    reg n00,n01,n02,n10,n12,n20,n21,n22;//n11 is not there, its the elemnet itself
     reg [3:0] n_count; //this is the final neighbuor count, use 3:0 cuz count can go upto 8(1000in bin)
     reg has_up, has_down, has_left, has_right; //based on these condictions we will decide if the neighbours exits or not
     always @(*) begin
@@ -17,7 +15,7 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
                 if (mat[i][j]) begin// i have converted @ and . to 1 and 0. we will need the input matrix to undergo this conversion
                     //now i will use these regs for conditions to check existence of neighoubts
                     has_up=(i>0);
-                    has_down =(i<DEPTH-1);
+                    has_down=(i<DEPTH-1);
                     has_left=(j>0);
                     has_right=(j<WIDTH-1);
                     //now store 0/1 based on existence of neighbours using the previos regs
