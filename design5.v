@@ -5,34 +5,19 @@
 // since this is part has a sequence, i think modelling this into a sequential circuit is the best way
 module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat[DEPTH-1:0], input clk//1=paper,0=nothin
 output reg [$clog2(WIDTH*DEPTH+1)-1:0] count);
-    reg mat_out = mat;
-    remove_accessible access inst1 #(WIDTH,DEPTH)(mat_out,count);//instantiation this will do the math for uss
+    reg [WIDTH-1:0]mat_out[DEPTH-1:0]
+    reg [WIDTH-1:0]mat_in[DEPTH-1:0]=mat;
+    remove_accessible inst1 #(WIDTH,DEPTH)(mat_in,mat_out,removed,any_removed);//instantiation this will do the math for uss
     // now i haveto build a top level software approach then
      //go into the hardware low level design
     //software approach
     count=0;
-    final=1;//check variable, jus a flag
     always @(posedge clk) begin
-        
+        if(any_removed) begin
+            count<=count+removed;
+            mat_in<=mat_out;
+        end
     end
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 endmodule
 
 // PART 1 modified to combinational one sweep removal
@@ -49,6 +34,8 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
         //compute removal
         for(i=0;i<DEPTH;i=i+1) begin
             for(j=0;j<WIDTH;j=j+1) begin
+                mat_out[i][j]=mat_in[i][j];
+                n_count = 4'b0;
                 if(mat_in[i][j]) begin
                     has_up=(i>0);
                     has_down=(i<DEPTH-1);
@@ -62,6 +49,7 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
                     n20=(has_down&&has_left)?mat_in[i+1][j-1]:1'b0;
                     n21=(has_down)?mat_in[i+1][j]:1'b0;
                     n22=(has_down&& has_right)?mat_in[i+1][j+1]:1'b0;
+                    n_count = 0;
                     n_count=n00+n01+n02+n10+n12+n20+n21+n22;
                     // remove accessible paper
                     if(n_count < 4) begin
@@ -69,11 +57,7 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
                         removed=removed+1'b1;
                         any_removed=1'b1;
                     end
-                    else
-                        mat_out[i][j]=1'b1;
                 end
-                else
-                    mat_out[i][j]=1'b0;
             end
         end
     end
