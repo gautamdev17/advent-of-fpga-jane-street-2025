@@ -59,4 +59,21 @@
     i ran the example given in aoc and i hit bugs
     TOTAL REMOVED = 13
     got this instead of 43
+    im going to test part 1 first
 
+2:38 pm:
+    yesss
+    part 1 has passed the example test case
+    design.sv:16: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:29: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:30: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:31: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:32: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:33: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:34: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:35: warning: @* is sensitive to all 10 words in array 'mat'.
+    design.sv:36: warning: @* is sensitive to all 10 words in array 'mat'.
+    ACCESSIBLE COUNT = 13
+    testbench.sv:32: $finish called at 1000 (1ps)
+
+    warnings are nothin we want that for procedural blocks
