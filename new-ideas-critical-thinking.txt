@@ -77,3 +77,6 @@
     testbench.sv:32: $finish called at 1000 (1ps)
 
     warnings are nothin we want that for procedural blocks
+
+2:56 pm:
+    now ill check whats the diff between my part 2 and aoc part 2
