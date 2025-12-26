@@ -52,4 +52,5 @@
     ye so i had this idea when i was sleeping
     we can have a flag reg to see if process is over
     like smtg which says its done no more acceessible rolls of paper
-    
+    ok so i added smtg extra any_removed flag
+    i can just use remoeved == 0
