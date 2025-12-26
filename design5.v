@@ -5,24 +5,25 @@
 module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_init[DEPTH-1:0],input clk,input reset//1=paper,0=nothin
 output reg [$clog2(WIDTH*DEPTH+1)-1:0]count,output reg done);//added flag regs
     reg [WIDTH-1:0]mat_out[DEPTH-1:0];
-    reg [WIDTH-1:0]mat_in[DEPTH-1:0]=mat;
+    reg [WIDTH-1:0]mat_in[DEPTH-1:0];
 
     wire [$clog2(WIDTH*DEPTH+1)-1:0]removed;
-    wire any_removed;
 
-    remove_accessible inst1 #(WIDTH,DEPTH)(mat_in,mat_out,removed,any_removed);//instantiation this will do the math for uss
+    remove_accessible inst1 #(WIDTH,DEPTH)(mat_in,mat_out,removed);//instantiation this will do the math for uss
     // now i haveto build a top level software approach then
      //go into the hardware low level design
-    count=0;
+    integer i;
     always @(posedge clk) begin
         if(reset) begin
-            mat_in<= mat_init;
+            for(i=0;i<DEPTH;i=i+1)
+                mat_in[i]<=mat_init[i];
             count<=0;done<=0;
         end
         else if(!done) begin
-            if(any_removed) begin
+            if(removed) begin
                 count<=count+removed;
-                mat_in<=mat_out;
+                for (i=0;i<DEPTH;i=i+1)
+                    mat_in[i]<=mat_out[i];
             end
             else
                 done<=1'b1;
@@ -32,7 +33,7 @@ endmodule
 
 // PART 1 modified to combinational one sweep removal
 module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_in[DEPTH-1:0],//1=paper,0=nothin
-    output reg [WIDTH-1:0] mat_out [DEPTH-1:0],output reg [$clog2(WIDTH*DEPTH+1)-1:0] removed,output reg any_removed);
+    output reg [WIDTH-1:0]mat_out[DEPTH-1:0],output reg [$clog2(WIDTH*DEPTH+1)-1:0]removed);
     integer i,j;
     reg n00,n01,n02,n10,n12,n20,n21,n22;//n11 is not there, its the elemnet itself
     reg [3:0]n_count;
@@ -40,7 +41,6 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
 
     always @(*) begin
         removed=0;
-        any_removed=0;
         //compute removal
         for(i=0;i<DEPTH;i=i+1) begin
             for(j=0;j<WIDTH;j=j+1) begin
@@ -65,7 +65,6 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
                     if(n_count < 4) begin
                         mat_out[i][j]=1'b0;
                         removed=removed+1'b1;
-                        any_removed=1'b1;
                     end
                 end
             end
