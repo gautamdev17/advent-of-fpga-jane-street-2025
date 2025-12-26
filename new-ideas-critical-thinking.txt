@@ -46,3 +46,10 @@
 4:10 pm:
     try pipelining
     for part 1 now its fully combinational and deterministic, but it might take a large area
+
+26-12-25
+11:51 AM:
+    ye so i had this idea when i was sleeping
+    we can have a flag reg to see if process is over
+    like smtg which says its done no more acceessible rolls of paper
+    

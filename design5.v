@@ -2,7 +2,7 @@
 // we can invoke hardware unit in previous part,basically we can first create instance of part 1 module and reuse it
 // maybe with a bit of modification
 // since this is part has a sequence, i think modelling this into a sequential circuit is the best way
-module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_init[DEPTH-1:0],input clk//1=paper,0=nothin
+module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_init[DEPTH-1:0],input clk,input reset//1=paper,0=nothin
 output reg [$clog2(WIDTH*DEPTH+1)-1:0]count,output reg done);//added flag regs
     reg [WIDTH-1:0]mat_out[DEPTH-1:0];
     reg [WIDTH-1:0]mat_in[DEPTH-1:0]=mat;
@@ -15,11 +15,17 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0]count,output reg done);//added flag regs
      //go into the hardware low level design
     count=0;
     always @(posedge clk) begin
-        // i want to add some inital reset conditions
-        
-        if(any_removed) begin
-            count<=count+removed;
-            mat_in<=mat_out;
+        if(reset) begin
+            mat_in<= mat_init;
+            count<=0;done<=0;
+        end
+        else if(!done) begin
+            if(any_removed) begin
+                count<=count+removed;
+                mat_in<=mat_out;
+            end
+            else
+                done<=1'b1;
         end
     end
 endmodule
