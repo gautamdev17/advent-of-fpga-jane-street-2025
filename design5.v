@@ -16,6 +16,7 @@ output reg [$clog2(WIDTH*DEPTH+1)-1:0]count,output reg done);//added flag regs
     count=0;
     always @(posedge clk) begin
         // i want to add some inital reset conditions
+        
         if(any_removed) begin
             count<=count+removed;
             mat_in<=mat_out;
