@@ -70,5 +70,4 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
             end
         end
     end
-
 endmodule

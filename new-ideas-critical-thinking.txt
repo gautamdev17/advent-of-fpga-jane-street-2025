@@ -54,3 +54,9 @@
     like smtg which says its done no more acceessible rolls of paper
     ok so i added smtg extra any_removed flag
     i can just use remoeved == 0
+
+2:26 pm:
+    i ran the example given in aoc and i hit bugs
+    TOTAL REMOVED = 13
+    got this instead of 43
+
