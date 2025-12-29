@@ -87,3 +87,12 @@
     will complete today
     i have come with some good ideas i guess
     😉
+
+10:50 pm:
+    basically in part 2:
+    scan once, find accesible '@'
+    replace with dots
+    again scan once mroe
+    find accesible '@'
+    replace with dots
+    do until no more accesible '@' remain
