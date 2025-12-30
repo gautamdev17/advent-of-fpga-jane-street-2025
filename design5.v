@@ -2,36 +2,49 @@
 // we can invoke hardware unit in previous part,basically we can first create instance of part 1 module and reuse it
 // maybe with a bit of modification
 // since this is part has a sequence, i think modelling this into a sequential circuit is the best way
-module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WIDTH-1:0]mat_init[DEPTH-1:0],input clk,input reset,//1=paper,0=nothin
-output reg [$clog2(WIDTH*DEPTH+1)-1:0]count,output reg done);//added flag regs
-    reg [WIDTH-1:0]mat_out[DEPTH-1:0];
-    reg [WIDTH-1:0]mat_in[DEPTH-1:0];
-    reg [$clog2(WIDTH*DEPTH+1)-1:0] removed_q;
-    reg started;
-    wire [$clog2(WIDTH*DEPTH+1)-1:0]removed;
+module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(
+    input  [WIDTH-1:0] mat_init[DEPTH-1:0],
+    input  clk,
+    input  reset,//1=paper,0=nothin
+    output reg [$clog2(WIDTH*DEPTH+1)-1:0] count,
+    output reg done
+);//added flag regs
 
-    remove_accessible #(.WIDTH(WIDTH),.DEPTH(DEPTH)) inst1 (mat_in,mat_out,removed);//instantiation this will do the math for uss
-    // now i haveto build a top level software approach then
-     //go into the hardware low level design
+    reg [WIDTH-1:0] mat_out[DEPTH-1:0];
+    reg [WIDTH-1:0] mat_in [DEPTH-1:0];
+
+    wire [$clog2(WIDTH*DEPTH+1)-1:0] removed;
+    reg  [$clog2(WIDTH*DEPTH+1)-1:0] removed_q;   // ★ added
+    reg started;                                   // ★ added
+
+    remove_accessible #(.WIDTH(WIDTH),.DEPTH(DEPTH)) inst1 (
+        mat_in, mat_out, removed
+    );
+
     integer i;
     always @(posedge clk) begin
-    if (reset) begin
-        for (i=0;i<DEPTH;i=i+1)
-            mat_in[i] <= mat_init[i];
-        count <= 0;
-        done  <= 0;
-    end
-    else if (!done) begin
-        if (removed != 0) begin
-            count <= count + removed;
+        if (reset) begin
             for (i=0;i<DEPTH;i=i+1)
-                mat_in[i] <= mat_out[i];
+                mat_in[i] <= mat_init[i];
+            count     <= 0;
+            done      <= 0;
+            removed_q <= 0;    // ★ added
+            started   <= 0;    // ★ added
         end
-        else begin
-            done <= 1'b1;
+        else if (!done) begin
+            removed_q <= removed;   // ★ latch THIS sweep
+
+            if (started && removed_q == 0) begin
+                done <= 1'b1;       // ★ stop AFTER a zero-removal sweep
+            end
+            else begin
+                started <= 1'b1;
+                count <= count + removed_q;   // ★ use PREVIOUS sweep
+                for (i=0;i<DEPTH;i=i+1)
+                    mat_in[i] <= mat_out[i];
+            end
         end
     end
-end
 endmodule
 
 // PART 1 modified to combinational one sweep removal
@@ -46,10 +59,10 @@ module remove_accessible #(parameter WIDTH = 16,parameter DEPTH = 16)(input [WID
         removed=0;
         //compute removal
         for(i=0;i<DEPTH;i=i+1) begin
-            for(j=0;j<WIDTH;j=j+1) begin
-                mat_out[i][j]=mat_in[i][j];
-                n_count = 4'b0;
-                if(mat_in[i][j]) begin
+            for(j=0;j<WIDTH;j=j+1) begin // go to an element
+                mat_out[i][j]=mat_in[i][j];// get default value first
+                n_count = 4'b0;//reset neighbour count
+                if(mat_in[i][j]) begin// if @ hit
                     has_up=(i>0);
                     has_down=(i<DEPTH-1);
                     has_left =(j>0);
