@@ -5,7 +5,7 @@
 module exhaustive_access #(parameter WIDTH = 16,parameter DEPTH = 16)(
     input  [WIDTH-1:0] mat_init[DEPTH-1:0],
     input  clk,
-    input  reset,//1=paper,0=nothin
+    input  reset,//1=paper,0=nothinx
     output reg [$clog2(WIDTH*DEPTH+1)-1:0] count,
     output reg done
 );//added flag regs

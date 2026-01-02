@@ -1,11 +1,15 @@
 `timescale 1ns/1ps
 
-module aoc_day;
+module aoc_day #
+(
+    parameter WIDTH = 10,
+    parameter DEPTH = 10
+)
+(
+    input reg grid_in [0:DEPTH-1][0:WIDTH-1]
+);
 
-    parameter WIDTH = 10;
-    parameter DEPTH = 10;
-
-    integer i, j, r, c;
+    integer r, c;
     integer removed_this_round;
     integer total_removed;
     integer stable;
@@ -28,7 +32,52 @@ module aoc_day;
     endfunction
 
     initial begin
-        // ---------- INITIAL GRID ----------
+        // 🔥 FIX: WAIT FOR TB TO INITIALIZE
+        #1;
+
+        // COPY INPUT GRID
+        for (r = 0; r < DEPTH; r = r + 1)
+            for (c = 0; c < WIDTH; c = c + 1)
+                grid[r][c] = grid_in[r][c];
+
+        total_removed = 0;
+        stable = 0;
+
+        // ITERATE UNTIL STABLE
+        while (stable == 0) begin
+            removed_this_round = 0;
+
+            for (r = 0; r < DEPTH; r = r + 1)
+                for (c = 0; c < WIDTH; c = c + 1)
+                    if (grid[r][c] && neighbors(r,c) < 4) begin
+                        grid[r][c] = 0;
+                        removed_this_round = removed_this_round + 1;
+                    end
+
+            if (removed_this_round == 0)
+                stable = 1;
+            else
+                total_removed = total_removed + removed_this_round;
+        end
+
+        $display("TOTAL REMOVED = %0d", total_removed);
+        $finish;
+    end
+endmodule
+
+
+`timescale 1ns/1ps
+
+module tb;
+
+    parameter WIDTH = 10;
+    parameter DEPTH = 10;
+
+    reg grid [0:DEPTH-1][0:WIDTH-1];
+
+    aoc_day #(WIDTH, DEPTH) dut (.grid_in(grid));
+
+    initial begin
         // ..@@.@@@@.
         grid[0][0]=0; grid[0][1]=0; grid[0][2]=1; grid[0][3]=1; grid[0][4]=0;
         grid[0][5]=1; grid[0][6]=1; grid[0][7]=1; grid[0][8]=1; grid[0][9]=0;
@@ -68,29 +117,6 @@ module aoc_day;
         // @.@.@@@.@.
         grid[9][0]=1; grid[9][1]=0; grid[9][2]=1; grid[9][3]=0; grid[9][4]=1;
         grid[9][5]=1; grid[9][6]=1; grid[9][7]=0; grid[9][8]=1; grid[9][9]=0;
-
-        total_removed = 0;
-        stable = 0;
-
-        // ---------- ITERATE UNTIL STABLE ----------
-        while (stable == 0) begin
-            removed_this_round = 0;
-
-            for (r = 0; r < DEPTH; r = r + 1)
-                for (c = 0; c < WIDTH; c = c + 1)
-                    if (grid[r][c] && neighbors(r,c) < 4) begin
-                        grid[r][c] = 0;
-                        removed_this_round = removed_this_round + 1;
-                    end
-
-            if (removed_this_round == 0)
-                stable = 1;
-            else
-                total_removed = total_removed + removed_this_round;
-        end
-
-        $display("TOTAL REMOVED = %0d", total_removed);
-        $finish;
     end
 
 endmodule
