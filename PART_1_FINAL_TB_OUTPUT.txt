@@ -1,0 +1,14 @@
+
+// PS: the @* are just warnings and are harmless @janestreet engineers
+
+design.sv:15: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:28: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:29: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:30: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:31: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:32: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:33: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:34: warning: @* is sensitive to all 10 words in array 'mat'.
+design.sv:35: warning: @* is sensitive to all 10 words in array 'mat'.
+ACCESSIBLE COUNT = 13
+testbench.sv:50: $finish called at 1000 (1ps)
