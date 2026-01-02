@@ -1,27 +1,34 @@
-## Why Day 4 (Printing Department)
+# Advent of FPGA – Day 4: Printing Department
 
-I chose **Day 4** because the problem maps naturally to hardware. It operates on a fixed 2D grid with simple, local rules based on neighboring cells, which makes it well-suited for a deterministic, synthesizable RTL implementation.
+## Why Day 4?
 
-Rather than relying on complex algorithms or data structures, the solution is driven by explicit state and iteration. This allows the design to be expressed as a small FSM operating over a grid stored in registers or memory, keeping behavior predictable and resource usage bounded.
+I chose **Day 4 (Printing Department)** because the problem maps very cleanly to hardware thinking.
 
-The problem also scales cleanly with grid size, making it a good candidate to explore trade-offs between area, latency, and parallelism.
+At its core, the task operates on a **fixed-size 2D grid** with **local, deterministic rules**: whether a paper roll can be removed depends only on its eight immediate neighbors. This makes the problem naturally suited for an RTL-style solution, where behavior is explicit, bounded, and predictable.
 
-## High-Level Design States
+Unlike problems that rely on complex data structures or recursion, this one is driven by:
+- simple arithmetic,
+- local neighborhood checks, and
+- repeated iteration until convergence.
 
-- **LOAD**  
-  Load the input grid into internal storage.
+That structure translates well into a **finite state machine (FSM)** operating over a grid stored in registers or memory.
 
-- **SCAN**  
-  Iterate over the grid and evaluate each cell’s 8 neighbors.
+The problem also scales cleanly with grid size, which makes it useful for thinking about hardware trade-offs such as:
+- area vs. parallelism,
+- latency vs. throughput,
+- full parallel scans vs. row/column iteration.
 
-- **MARK / REMOVE**  
-  Identify accessible cells and mark them for removal.
+Overall, Day 4 felt like a problem that could be *designed*, not just *coded*.
 
-- **UPDATE**  
-  Apply removals and update the grid state.
+---
 
-- **CHECK_DONE**  
-  Detect convergence when no more cells can be removed.
+## Problem Summary
 
-- **DONE**  
-  Output the final count and halt execution.
+- The grid contains rolls of paper (`@`) and empty spaces (`.`).
+- A roll is **accessible** if **fewer than 4 of its 8 neighbors** are also rolls.
+- In **Part 1**, we count all accessible rolls in a single scan.
+- In **Part 2**, accessible rolls are removed, which may expose new rolls.
+- The process repeats until **no more rolls can be removed**.
+- The final output is the **total number of removed rolls**.
+
+---
