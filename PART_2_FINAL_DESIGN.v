@@ -1,12 +1,8 @@
 `timescale 1ns/1ps
 
 module exhaustive_access #
-(
-    parameter WIDTH = 10,
-    parameter DEPTH = 10
-)
-(
-    input  wire clk,
+(parameter WIDTH = 10,parameter DEPTH = 10)
+(input  wire clk,
     input  wire rst,
     input  wire start,
     input  wire grid_in [0:DEPTH-1][0:WIDTH-1],

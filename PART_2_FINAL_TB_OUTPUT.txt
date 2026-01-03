@@ -1,0 +1,2 @@
+TOTAL REMOVED = 43
+testbench.sv:53: $finish called at 355000 (1ps)
