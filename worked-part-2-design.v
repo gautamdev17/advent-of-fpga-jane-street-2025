@@ -1,7 +1,8 @@
 `timescale 1ns/1ps
 
 module exhaustive_access #(parameter WIDTH = 10,parameter DEPTH = 10)(input reg grid_in [0:DEPTH-1][0:WIDTH-1]);
-    integer r,c;
+    // since we want grid_in to be element wise accessible its delcared in unpacked form
+    integer r,c; //row column variables
     integer removed_this_round;
     integer total_removed;
     integer stable;
