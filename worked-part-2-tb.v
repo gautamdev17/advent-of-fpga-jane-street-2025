@@ -1,7 +1,6 @@
 `timescale 1ns/1ps
 
 module tb;
-
     parameter WIDTH = 10;
     parameter DEPTH = 10;
 
