@@ -10,19 +10,15 @@ module tb;
     reg start = 0;
 
     reg grid [0:DEPTH-1][0:WIDTH-1];
-    reg [8*WIDTH-1:0] ascii [0:DEPTH-1];
+    reg [8*WIDTH-1:0]ascii[0:DEPTH-1];
 
     wire [31:0] total_removed;
     wire done;
 
-    exhaustive_access #(WIDTH,DEPTH) dut (
-        .clk(clk),
-        .rst(rst),
-        .start(start),
-        .grid_in(grid),
-        .total_removed(total_removed),
-        .done(done)
-    );
+  exhaustive_access #(WIDTH,DEPTH) inst1 
+  (
+    clk,rst,start,grid,total_removed,done
+  );
 
     always #5 clk = ~clk;
 
