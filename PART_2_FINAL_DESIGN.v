@@ -1,10 +1,10 @@
 /* 	EXPLANATION:
-	This design treats the grid like a small world that is repeatedly cleaned up.
-	It starts by loading the input grid into the FSM, then scans every cell, looking at its eight neighbors using simple local signals.
-	If a paper roll has fewer than four neighbors, it gets marked for removal.
-	On the second state, all the marked rolls are removed together and the total count is updated.
-	The process repeats until, on a full scan, there is nothing left to remove, whereupon the design signals completion.
-	The separation of scanning and removing makes the behavior deterministic and closely follows the rules given in the problem's step-by-step approach.
+	This design treats the grid like a small world that is repeatedly cleans up
+	It starts by loading the input grid into the fsm then scans every cell looking at its 8 neighbours using simple local signals
+	If a paper roll has fewer than four neighbor---<>it gets marked for removal
+	On the second state all the marked rolls are removed together and the total count is updated
+	The process repeats until on a full scan there is nothing left to remove then the design signals completion.
+	This is a clean fsm implementation and produces good reproducible hardware
 	*/
 `timescale 1ns/1ps
 
