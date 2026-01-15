@@ -12,7 +12,7 @@ state updates.
 This maps naturally to a finite state machine operating on a
 stored grid which feels very close to how real hardware is designed.
 
-CHECK FILES:
+CHECK FILES:  
   PART _1_FINAL_DESIGN.v  
   PART_1_FINAL_TB.v  
   PART_1_FINAL_TB_OUTPUT.txt  
